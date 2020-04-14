@@ -21,7 +21,10 @@ class LRU:
         if index > self.capacity :
             return -1
         else :
-            return self.lis[index]
+            i = self.lis[index]
+            self.lis.remove(self.lis[index])
+            self.lis.append(i)
+            return i
 
     def get_cache(self) :
         return self.lis

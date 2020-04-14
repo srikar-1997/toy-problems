@@ -20,7 +20,13 @@ def main():
     print("get method with index greater than capacity passed")
 
     lru.put(6)
-    lru.get_cache() == [2, 3, 4, 5, 6], "get_cache method failed"
+    assert lru.get_cache() == [1, 2, 3, 5, 6], "get_cache method failed"
+    print("get_cache method passed")
+
+    assert lru.get(2) == 3, "get method failed"
+    print("get method passed")
+
+    assert lru.get_cache() == [1, 2, 5, 6, 3], "get_cache method failed"
     print("get_cache method passed")
 
     print("lru implementation completed")
