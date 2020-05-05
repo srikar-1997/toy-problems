@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                var arr = []
+                var mar = []
+                document.querySelector("#sub").disabled = true;
+
+
+                document.querySelector('#inp').onkeyup = () => {
+                    if (document.querySelector('#inp').value.length > 0) {
+                        document.querySelector("#sub").disabled = false;
+                    } else {
+                        document.querySelector("#sub").disabled = true;
+                    }
+                };
+
+                document.querySelector("#sub").onclick = () => {
+                    arr.push(document.querySelector('#inp').value);
+                    document.querySelector('#inp').value = '';
+                    document.querySelector("#sub").disabled = true;
+
+                    var info = '<br>';
+                    for (let i = 0; i < arr.length; i++) {
+                        info += '<input name = "rating" value = '+arr[i]+' id = '+arr[i]+'  type="radio" />'+arr[i]+' <br>'
+                    }
+                    document.querySelector("#task").innerHTML = info
+
+                    var dis = '<br>';
+                    for (let i = 0; i < arr.length; i++) {
+                        if (mar.includes(arr[i]) ) {
+                            dis += '<s>'+arr[i]+'</s><br>'
+                        } else {
+                            dis += arr[i]+' <br>'
+                        }
+                    }
+                    
+                    document.querySelector("#col2").innerHTML = dis
+
+                    return false;
+                }
+                
+                document.querySelector("#del").onclick = () => {
+                    var x = document.getElementsByName("rating")
+                    var del = ""
+                    for (let i = 0; i < x.length; i++) {
+                        if (x[i].checked === true) {
+                            del = x[i].value
+                        }
+                    }
+                    console.log(del)
+                    arr = arr.filter(item => item !== del)
+                    var info = '<br>';
+                    for (let i = 0; i < arr.length; i++) {
+                        info += '<input name = "rating" value = '+arr[i]+' id = '+arr[i]+'  type="radio" />'+arr[i]+' <br>'
+                    }
+                    document.querySelector("#task").innerHTML = info
+
+                    var dis = '<br>';
+                    for (let i = 0; i < arr.length; i++) {
+                        if (mar.includes(arr[i])) {
+                            dis += '<s>'+arr[i]+'</s><br>'
+                        } else {
+                            dis += arr[i]+' <br>'
+                        }
+                    }
+                    document.querySelector("#col2").innerHTML = dis
+
+                    return false;
+                }
+
+                document.querySelector("#mar").onclick = () => {
+                    var x = document.getElementsByName("rating")
+                    for (let i = 0; i < x.length; i++) {
+                        if (x[i].checked === true) {
+                            mar.push(x[i].value)
+                        }
+                    }
+
+                    var dis = '<br>';
+                    for (let i = 0; i < arr.length; i++) {
+                        if (mar.includes(arr[i])) {
+                            dis += '<s>'+arr[i]+'</s><br>'
+                        } else {
+                            dis += arr[i]+' <br>'
+                        }
+                    }
+                    document.querySelector("#col2").innerHTML = dis
+                    
+                    return false;
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-6" id = "col1">
+                <ul id = "task"></ul>
+                <form id = "task">
+                    <input type = "text" placeholder="task" id = "inp" autocomplete="off" autofocus>
+                    <br>
+                    <br>
+                    <button id = "sub" type = "submit" class = "btn btn-success">submit</button>
+                    <br>
+                    <br>
+                    <button  id = "del" type = "submit" class = "btn btn-success">Delete</button>
+                    <br>
+                    <br>
+                    <button  id = "mar" type = "submit" class = "btn btn-success">Mark</button>
+                </form>
+              </div>
+              <div class="col-sm-6">
+                <h1>Tasks</h1>
+                <div id = "col2"></div>
+              </div>
+            </div>
+          </div>
+    </body>
+</html>
